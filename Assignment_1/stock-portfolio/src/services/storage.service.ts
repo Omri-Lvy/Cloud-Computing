@@ -1,7 +1,9 @@
 import {Stock, StockCreationDTO} from "../models/interfaces";
 import {generateId} from "../utils/id.utils";
 
-const store = new Map<string, Stock>();
+const stocksData = new Map<string, Stock>();
+const usedIds = new Set<string>();
+
 
 const formatStock = (stock: Stock): Stock => ({
     ...stock,
@@ -20,21 +22,21 @@ export const createStock = async (stockData: StockCreationDTO): Promise<Stock> =
         shares: stockData.shares,
     });
 
-    store.set(id, stock);
+    stocksData.set(id, stock);
     return stock;
 }
 
 export const getStock = async (id: string): Promise<Stock | null> => {
-    const stock = store.get(id);
+    const stock = stocksData.get(id);
     return stock ? formatStock(stock) : null;
 }
 
 export const getStocks = async (): Promise<Stock[]> => {
-    return Array.from(store.values());
+    return Array.from(stocksData.values());
 }
 
 export const updateStock = async (id: string, stockData: StockCreationDTO): Promise<Stock | null> => {
-    const stock = store.get(id);
+    const stock = stocksData.get(id);
     if (!stock) {
         return null;
     }
@@ -45,18 +47,22 @@ export const updateStock = async (id: string, stockData: StockCreationDTO): Prom
         purchase_date: stockData.purchase_date || stock.purchase_date,
         shares: stockData.shares || stock.shares,
     });
-    store.set(id, updatedStock);
+    stocksData.set(id, updatedStock);
     return updatedStock;
 }
 
 export const deleteStock = async (id: string): Promise<boolean> => {
-    return store.delete(id);
+    return stocksData.delete(id);
 }
 
 export const findStockByQuery = async (query: Record<string, string>): Promise<Stock[]> => {
-    return Array.from(store.values()).filter(stock => (
+    return Array.from(stocksData.values()).filter(stock => (
         Object.entries(query).every(([key, value]) => (
             stock[key as keyof Stock] === value
         ))
     ));
 }
+
+export const isUsedId = (id: string): boolean => usedIds.has(id);
+
+export const addIdToUsedIdsList = (id: string): Set<string> => usedIds.add(id);

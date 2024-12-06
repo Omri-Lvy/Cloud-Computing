@@ -8,18 +8,15 @@ import {
 
 const router = Router();
 
-// Stocks collection routes
 router.post('/stocks', createStockController);
+
 router.get('/stocks', getStocksController);
-
-// Single stock routes
 router.get('/stocks/:id', getStockController);
-router.put('/stocks/:id', updateStockController);
-router.delete('/stocks/:id', deleteStockController);
-
-// Stock value routes
 router.get('/stock-value/:id', getStockValueController);
 router.get('/portfolio-value', getPortfolioValueController);
+
+router.put('/stocks/:id', updateStockController);
+router.delete('/stocks/:id', deleteStockController);
 
 
 export default router;

@@ -4,7 +4,6 @@ export const isStockDataValid = (stock: any): stock is StockCreationDTO => {
     const stockObj = stock as any;
     console.log(stockObj)
 
-    // Basic type checks
     if (typeof stockObj !== 'object' || stockObj === null) return false;
     if (typeof stockObj.symbol !== 'string') return false;
     if (typeof stockObj.purchase_price !== 'number') return false;

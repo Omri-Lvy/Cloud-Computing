@@ -25,7 +25,3 @@ export interface PortfolioValue {
     date: string;
     portfolio_value: number;
 }
-
-export interface IdResponse {
-    id: string;
-}

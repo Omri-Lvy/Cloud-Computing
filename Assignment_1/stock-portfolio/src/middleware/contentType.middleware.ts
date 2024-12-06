@@ -3,7 +3,8 @@ import {sendMediaTypeError} from "../utils/errors.utils";
 
 export const ensureJsonContent = (req: Request, res: Response, next: NextFunction):void => {
     if (req.method === 'POST' || req.method === 'PUT') {
-        if (req.headers['content-type'] !== 'application/json') {
+        const contentType = req.headers['content-type'];
+        if (!contentType || !contentType.startsWith('application/json')) {
             sendMediaTypeError(res);
         }
     }

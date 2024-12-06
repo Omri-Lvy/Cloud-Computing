@@ -3,7 +3,6 @@ import {sendMalformedError} from "../utils/errors.utils";
 import {isStockDataValid} from "../utils/validation.utils";
 
 export const validateStockData = (req: Request, res: Response, next: NextFunction): void => {
-    // Only validate for POST and PUT methods
     if (req.method === 'POST' || req.method === 'PUT') {
         const stock = req.body;
         const requiredFields = ['symbol', 'purchase_price', 'shares'];

@@ -2,11 +2,12 @@
   "name": "stock-portfolio",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node dist/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc",
-    "test": "jest --runInBand --forceExit",
+    "test": "npx jest --coverage --runInBand",
     "test:watch": "jest --watch",
     "test:api": "jest api.test.ts",
     "test:docker": "jest docker.test.ts --forceExit",

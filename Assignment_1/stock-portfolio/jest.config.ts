@@ -1,30 +1,17 @@
+import type { Config } from "jest";
 
-import type { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
-    preset: 'ts-jest',
-    testEnvironment: 'node',
-    extensionsToTreatAsEsm: ['.ts'],
-    moduleNameMapper: {
-        '^(\\.{1,2}/.*)\\.js$': '$1',
-    },
-    transform: {
-        '^.+\\.tsx?$': [
-            'ts-jest',
-            {
-                useESM: true,
-            },
-        ],
-    },
-    setupFiles: ['dotenv/config'],
+const config: Config = {
+    preset: "ts-jest",
+    testEnvironment: "node",
     verbose: true,
     testTimeout: 30000,
-    clearMocks: true,
-    collectCoverage: true,
-    coverageDirectory: 'coverage',
-    testMatch: [
-        "**/tests/**/*.test.ts"
-    ]
+    moduleFileExtensions: ["ts", "js"],
+    transform: {
+        "^.+\\.ts$": "ts-jest",
+    },
+    testMatch: ["**/*.test.ts"],
+    globalSetup: "./jest.globalSetup.ts",
+    globalTeardown: "./jest.globalTeardown.ts",
 };
 
 export default config;
